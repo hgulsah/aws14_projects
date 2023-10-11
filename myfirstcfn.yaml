@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  This template creates an EC2 instance and a security group 
+  
+Resources:
+  
+  CFNSecGr:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH 
+      SecurityGroupIngress: 
+        - IpProtocol: tcp 
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+
+  CFNInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-067d1e60475437da2
+      InstanceType: t2.micro
+      KeyName: aws_practice_keypair
+      SecurityGroups: 
+        - !Ref CFNSecGr
+      Tags: 
+       - Key: Name
+         Value: CFNInstance
+      
+      
